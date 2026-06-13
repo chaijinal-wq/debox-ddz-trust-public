@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-13T10:32:38.262Z",
+  "source": "private debox-ddz repository allowlist",
+  "copiedPaths": [
+    "tsconfig.base.json",
+    "packages/protocol/README.md",
+    "packages/protocol/package.json",
+    "packages/protocol/tsconfig.json",
+    "packages/protocol/src",
+    "packages/game-core/README.md",
+    "packages/game-core/package.json",
+    "packages/game-core/tsconfig.json",
+    "packages/game-core/src",
+    "packages/game-core/tests",
+    "packages/verifier/README.md",
+    "packages/verifier/package.json",
+    "packages/verifier/tsconfig.json",
+    "packages/verifier/src",
+    "contracts/escrow/README.md",
+    "contracts/escrow/package.json",
+    "contracts/escrow/DdzEscrowRoom.sol",
+    "contracts/escrow/test",
+    "docs/public-trust-surface.md",
+    "docs/open-source-trust.md",
+    "docs/open-source-trust-packaging.md",
+    "docs/game-rules.md",
+    "docs/bsc-escrow-flow.md",
+    "docs/threat-model.md",
+    "docs/release-verification-checklist.md",
+    "docs/real-money-release-gates.md"
+  ],
+  "generatedPaths": [
+    "README.md",
+    "SECURITY.md",
+    "package.json",
+    "docs/release-gates.json"
+  ],
+  "excludedByDefault": [
+    "apps/server",
+    "apps/web",
+    "ops",
+    ".env*",
+    "artifacts",
+    "dist",
+    "node_modules",
+    "deployment credentials",
+    "relayer/admin/owner secrets"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@debox-ddz/verifier",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "debox-ddz-verify": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify": "node dist/cli.js"
+  },
+  "dependencies": {
+    "@debox-ddz/game-core": "file:../game-core",
+    "@debox-ddz/protocol": "file:../protocol"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

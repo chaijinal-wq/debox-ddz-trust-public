@@ -1,0 +1,33 @@
+{
+  "name": "debox-ddz-trust-public",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Public trust surface for DeBox Dou Dizhu rules, verifier, transcript replay, and BOX escrow review.",
+  "workspaces": [
+    "packages/protocol",
+    "packages/game-core",
+    "packages/verifier",
+    "contracts/escrow"
+  ],
+  "scripts": {
+    "build": "npm run build -w @debox-ddz/protocol && npm run build -w @debox-ddz/game-core && npm run build -w @debox-ddz/verifier",
+    "test": "npm run test -w @debox-ddz/game-core && npm run check -w @debox-ddz/escrow",
+    "contract:check": "npm run check -w @debox-ddz/escrow",
+    "verifier:build": "npm run build -w @debox-ddz/verifier"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "solc": "^0.8.35",
+    "typescript": "^6.0.3",
+    "viem": "^2.51.3",
+    "@ethereumjs/block": "^10.1.1",
+    "@ethereumjs/common": "^10.1.1",
+    "@ethereumjs/tx": "^10.1.1",
+    "@ethereumjs/util": "^10.1.1",
+    "@ethereumjs/vm": "^10.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

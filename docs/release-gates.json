@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "project": "debox-ddz",
+  "scope": "real-box-money-room-v1",
+  "launchAllowed": false,
+  "fixedProductionConfig": {
+    "chainId": 56,
+    "asset": "BOX",
+    "boxTokenAddress": "0x6386adc4bc9c21984e34fd916bb349dd861742af",
+    "initialFeeRateBps": 10,
+    "initialFeeRateLabel": "0.1%",
+    "feeRateMaxBps": 500,
+    "feeRateMaxLabel": "5%",
+    "feeTreasury": "0x7b8d2f544672289b270da23dc4adbd3dd2d74b27",
+    "supportGroupGid": "vx49nx5b",
+    "multiplierCap": 16
+  },
+  "statusValues": [
+    "complete",
+    "pending",
+    "blocked"
+  ],
+  "evidencePolicy": "Public export keeps only evidence paths inside public trust packages/docs/contracts. Private app, server, ops, generated artifact, and credential-bearing evidence paths are counted but not listed.",
+  "gates": [
+    {
+      "id": "escrow-spec-alignment",
+      "category": "contract",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Escrow draft must match BOX-only internal-balance Session escrow model.",
+      "publicEvidence": [
+        "contracts/escrow/DdzEscrowRoom.sol",
+        "docs/bsc-escrow-flow.md"
+      ],
+      "privateEvidenceCount": 0
+    },
+    {
+      "id": "contract-unit-tests",
+      "category": "contract",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Escrow unit tests must cover exact BOX transfer accounting, deposit, lock, settlement conservation, payload-bound settlement id, profit fee, replay rejection, self-service withdrawal/claim/refund, manual-review, pause controls, fee notice, fee cap, and permission boundaries.",
+      "publicEvidence": [
+        "contracts/escrow/test/DdzEscrowRoom.test.mjs",
+        "contracts/escrow/test/helpers/evm.mjs",
+        "contracts/escrow/test/fixtures/MockBoxToken.sol",
+        "contracts/escrow/package.json"
+      ],
+      "privateEvidenceCount": 1
+    },
+    {
+      "id": "contract-integration-tests",
+      "category": "contract",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Backend/relayer/escrow integration tests must validate shared settlement fixtures against the contract-adjacent flow.",
+      "publicEvidence": [
+        "contracts/escrow/test/helpers/evm.mjs"
+      ],
+      "privateEvidenceCount": 6
+    },
+    {
+      "id": "source-verification-plan",
+      "category": "contract",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "BSC source verification must be completed for the deployed escrow contract, and post-deploy evidence must show matching source, constructor args, bytecode, owner, relayer, treasury, fee params, and BSCScan readback.",
+      "publicEvidence": [
+        "contracts/escrow/DdzEscrowRoom.sol"
+      ],
+      "privateEvidenceCount": 40
+    },
+    {
+      "id": "independent-contract-review",
+      "category": "contract",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Independent contract review or audit notes must be available, and critical findings must be remediated or explicitly accepted before real BOX rooms.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 6
+    },
+    {
+      "id": "game-and-backend-replay-fixtures",
+      "category": "verification",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Game-core and backend transcript/replay fixtures must pass.",
+      "publicEvidence": [
+        "packages/game-core/tests/real-money-replay-fixtures.test.ts"
+      ],
+      "privateEvidenceCount": 1
+    },
+    {
+      "id": "strict-production-action-auth",
+      "category": "security",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Production-like Real BOX rooms must reject mock action envelopes and unverified DeBox action envelopes while keeping ordinary bid/play/pass low-friction through server-verified player sessions.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 7
+    },
+    {
+      "id": "canonical-deal-replay",
+      "category": "security",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Server dealing, first-bidder selection, public replay helpers, and replay fixtures must use the same game-core round-deal derivation function.",
+      "publicEvidence": [
+        "packages/game-core/src/rng.ts",
+        "packages/game-core/tests/cards-and-rules.test.ts",
+        "packages/game-core/tests/real-money-replay-fixtures.test.ts"
+      ],
+      "privateEvidenceCount": 4
+    },
+    {
+      "id": "verifiable-shuffle-precommit",
+      "category": "security",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Every real-money round must use a server shuffle nonce committed before any player ready nonce, then reveal and validate that commitment before dealing.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 6
+    },
+    {
+      "id": "unfunded-seat-active-participation-guard",
+      "category": "security",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Unfunded real-money create/join seats must not reserve a wallet address globally or block the real wallet owner from entering another room.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 3
+    },
+    {
+      "id": "api-realtime-abuse-limits",
+      "category": "security",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "HTTP and realtime endpoints must enforce body, payload, message-rate, and subscription limits so malformed or excessive traffic fails without taking down active tables.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 4
+    },
+    {
+      "id": "player-private-room-views",
+      "category": "verification",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Player-facing room HTTP and realtime views must not expose opponent private hands.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 8
+    },
+    {
+      "id": "frontend-money-flow-acceptance",
+      "category": "verification",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Frontend money-flow acceptance checks must pass in DeBox production-like runtime.",
+      "publicEvidence": [
+        "docs/open-source-trust-packaging.md",
+        "docs/threat-model.md",
+        "docs/release-verification-checklist.md"
+      ],
+      "privateEvidenceCount": 58
+    },
+    {
+      "id": "deployment-rollback-runbook",
+      "category": "operations",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Deployment, rollback, relayer, monitoring, support, and emergency procedures must be documented.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 19
+    },
+    {
+      "id": "production-monitoring",
+      "category": "operations",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "V1 classic operations monitoring must cover settlement delay, relayer balance, RPC failure, manual-review volume, and exception rooms, with DeBox group manual handling as the incident path.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 12
+    },
+    {
+      "id": "bsc-staging-relayer-evidence",
+      "category": "operations",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "BSC staging relayer evidence must archive safe RPC labels, nonce reservation, controlled SessionLocked and SessionSettled tx hashes, receipts, decoded events, and reconciliation results against approved BSC RPC.",
+      "publicEvidence": [
+        "docs/release-verification-checklist.md"
+      ],
+      "privateEvidenceCount": 13
+    },
+    {
+      "id": "server-persistence-foundation",
+      "category": "operations",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Server must persist Room, Session, Round, Transcript, SettlementJob, AdminAudit, ready nonce, and action replay records through a database-backed repository boundary.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 4
+    },
+    {
+      "id": "debox-production-credentials",
+      "category": "debox",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Developer App, App key/API Key, App Secret, HTTPS URL, bot/sender identity, optional endpoint-specific App ID if required, and open-access platform posture notes must be recorded.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 11
+    },
+    {
+      "id": "debox-wallet-signature-method",
+      "category": "debox",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Production wallet transaction capability and diagnostic typed-data signature method must be captured as DeBox App runtime evidence.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 12
+    },
+    {
+      "id": "debox-runtime-diagnostics",
+      "category": "debox",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "DeBox diagnostics must pass inside the DeBox app against an HTTPS test deployment with production-like credentials.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 15
+    },
+    {
+      "id": "debox-share-entry-behavior",
+      "category": "debox",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Share entry behavior must be documented and avoid exposing wallet addresses, balances, settlement ids, and secrets.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 12
+    },
+    {
+      "id": "initial-fee-rate",
+      "category": "money-config",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Initial fee rate must be 0.1% of net Session profit.",
+      "publicEvidence": [
+        "packages/protocol/src/index.ts"
+      ],
+      "privateEvidenceCount": 1
+    },
+    {
+      "id": "fee-rate-cap",
+      "category": "money-config",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Production feeRateMax must be approved and documented before deployment.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 5
+    },
+    {
+      "id": "treasury-address",
+      "category": "money-config",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Production fee treasury address must be approved and documented before deployment.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 4
+    },
+    {
+      "id": "fee-change-announcement",
+      "category": "money-config",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Fee changes must require announcement copy, at least 24h notice, an apply event, and must not affect active Sessions.",
+      "publicEvidence": [
+        "contracts/escrow/DdzEscrowRoom.sol"
+      ],
+      "privateEvidenceCount": 1
+    },
+    {
+      "id": "support-contact",
+      "category": "support",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "Production DeBox support group/contact must be configured and visible in settlement/manual-review states.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 5
+    },
+    {
+      "id": "admin-key-policy",
+      "category": "operations",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "V1 classic operations policy must approve admin roles, owner/emergency address, relayer address, ordinary support authority, and trusted-relayer custody acceptance; multisig, formal compensation pool, player-authorization strategy, and heavier audit retention are post-v1 upgrades.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 12
+    },
+    {
+      "id": "platform-compliance-review",
+      "category": "platform",
+      "status": "complete",
+      "blocksRealMoney": true,
+      "requirement": "DeBox open-access platform posture is documented: no pre-review is assumed for technical launch; any later platform feedback is handled reactively while user-facing risk/support copy remains visible.",
+      "publicEvidence": [],
+      "privateEvidenceCount": 4
+    },
+    {
+      "id": "public-production-release-approval",
+      "category": "release",
+      "status": "pending",
+      "blocksRealMoney": true,
+      "requirement": "Before broad public real-money rooms are opened, owner/reviewer release approval must confirm P0/P1 remediation, dynamic browser money-flow evidence, release-gate posture, monitoring, support, and rollback runbook.",
+      "publicEvidence": [
+        "docs/real-money-release-gates.md",
+        "docs/release-verification-checklist.md"
+      ],
+      "privateEvidenceCount": 10
+    }
+  ]
+}
