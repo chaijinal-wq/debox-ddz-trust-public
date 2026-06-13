@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-13T10:32:38.262Z",
+  "generatedAt": "2026-06-13T15:22:01.889Z",
   "source": "private debox-ddz repository allowlist",
   "copiedPaths": [
     "tsconfig.base.json",
@@ -32,8 +32,12 @@
   ],
   "generatedPaths": [
     "README.md",
+    "LICENSE",
+    ".gitignore",
     "SECURITY.md",
     "package.json",
+    ".github/workflows/ci.yml",
+    "examples/round-transcript.json",
     "docs/release-gates.json"
   ],
   "excludedByDefault": [

@@ -93,6 +93,38 @@ export function positiveMinorBoxAmount(value: unknown, fieldName = "amount"): Mi
   return amount;
 }
 
+export const BOX_MINOR_DECIMALS = 2n;
+export const BOX_MINOR_UNITS_PER_BOX = 10n ** BOX_MINOR_DECIMALS;
+export const BOX_TOKEN_DECIMALS = BigInt(BSC_ASSETS.BOX.decimals);
+export const BOX_CHAIN_UNITS_PER_MINOR_BOX = 10n ** (BOX_TOKEN_DECIMALS - BOX_MINOR_DECIMALS);
+
+export function minorBoxUnitsToChainUnits(value: unknown, fieldName = "amount"): bigint {
+  const amount = minorBoxAmount(value, fieldName);
+  return BigInt(amount) * BOX_CHAIN_UNITS_PER_MINOR_BOX;
+}
+
+function safeMinorBoxNumber(value: bigint): MinorBoxAmount {
+  const asNumber = Number(value);
+  if (!Number.isSafeInteger(asNumber)) {
+    throw new Error("BOX minor amount exceeds safe integer range.");
+  }
+  return asNumber as MinorBoxAmount;
+}
+
+export function chainUnitsToMinorBoxUnits(value: bigint): MinorBoxAmount {
+  if (value < 0n || value % BOX_CHAIN_UNITS_PER_MINOR_BOX !== 0n) {
+    throw new Error("BOX chain amount is not aligned to protocol minor units.");
+  }
+  return safeMinorBoxNumber(value / BOX_CHAIN_UNITS_PER_MINOR_BOX);
+}
+
+export function chainUnitsToRoundedMinorBoxUnits(value: bigint): MinorBoxAmount {
+  if (value < 0n) {
+    throw new Error("BOX chain amount must be non-negative.");
+  }
+  return safeMinorBoxNumber((value + BOX_CHAIN_UNITS_PER_MINOR_BOX / 2n) / BOX_CHAIN_UNITS_PER_MINOR_BOX);
+}
+
 export interface StakePresetTier {
   bidScore: BidScore;
   farmerUnit: number;
@@ -989,3 +1021,4 @@ export type SettlementChoiceAction = SignedActionEnvelope<SettlementChoicePayloa
 
 export * from "./addressPolicy.js";
 export * from "./roomPolicy.js";
+export * from "./actionSignature.js";

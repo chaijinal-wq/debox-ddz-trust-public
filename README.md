@@ -23,5 +23,15 @@ npm run test
 Verify a public transcript bundle after building:
 
 ```bash
-node packages/verifier/dist/cli.js ./round-transcript.json
+node packages/verifier/dist/cli.js ./examples/round-transcript.json
 ```
+
+Run the included sample bundle:
+
+```bash
+npm run verify:example
+```
+
+## License
+
+MIT. See `LICENSE`.

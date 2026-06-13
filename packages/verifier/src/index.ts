@@ -33,6 +33,7 @@ export interface TrustVerificationReport {
 
 export interface PublicTrustBundle {
   schemaVersion?: number;
+  roomId?: string;
   room?: RoomSnapshot;
   transcript?: TranscriptEvent[];
   sessions?: SessionSnapshot[];
@@ -42,6 +43,7 @@ export interface PublicTrustBundle {
 }
 
 interface NormalizedBundle {
+  roomId?: string;
   room?: RoomSnapshot;
   transcript: TranscriptEvent[];
   sessions: SessionSnapshot[];
@@ -107,12 +109,14 @@ function dedupeById<T extends { id: string }>(items: Array<T | undefined>): T[] 
 function normalizeBundle(input: unknown): NormalizedBundle {
   const record = isRecord(input) ? input : {};
   const room = isRoomSnapshotLike(record.room) ? record.room : isRoomSnapshotLike(input) ? input : undefined;
+  const roomId = typeof record.roomId === "string" && record.roomId ? record.roomId : room?.id;
   const transcript = asArray<TranscriptEvent>(record.transcript).length > 0
     ? asArray<TranscriptEvent>(record.transcript)
     : room?.transcript ?? [];
   const explicitSettlement = isRecord(record.settlement) ? (record.settlement as unknown as SettlementJobSnapshot) : undefined;
 
   return {
+    roomId,
     room,
     transcript,
     sessions: dedupeById<SessionSnapshot>([
@@ -442,7 +446,7 @@ export async function verifyTrustBundle(input: unknown): Promise<TrustVerificati
     );
   }
 
-  const roomId = bundle.room?.id ?? bundle.settlements.find((settlement) => settlement.roomId)?.roomId;
+  const roomId = bundle.roomId ?? bundle.settlements.find((settlement) => settlement.roomId)?.roomId;
   const transcriptSessions = sessionFromTranscript(bundle.transcript);
   const sessions = new Map<string, TranscriptSessionEvidence>();
   for (const session of transcriptSessions) sessions.set(session.id, session);

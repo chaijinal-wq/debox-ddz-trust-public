@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "roomId": "room-public-example",
+  "transcript": [
+    {
+      "index": 0,
+      "type": "session.started",
+      "actorId": "system",
+      "payload": {
+        "sessionId": "session-public-example",
+        "playerIds": [
+          "alice",
+          "bob",
+          "carol"
+        ],
+        "lockedBalances": {
+          "alice": 2000,
+          "bob": 2000,
+          "carol": 2000
+        },
+        "feeRateBps": 10,
+        "requiresChainLock": false
+      },
+      "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "eventHash": "c4607196db3ca5d390e6a51940aaa8b4423a1ac1a1edf39638b4c6c83bcd32f1"
+    },
+    {
+      "index": 1,
+      "type": "round.started",
+      "actorId": "system",
+      "payload": {
+        "sessionId": "session-public-example",
+        "roundId": "round-public-example",
+        "serverCommitment": "41bbbb59a865b0af49ccc952bd6d606f63af28cebe2a3c18740870f8441f8d63",
+        "serverNonce": "public-example-server-nonce-000000000000000000000000000001",
+        "serverCommittedAt": "2026-06-13T00:00:00.500Z",
+        "revealValidated": true,
+        "dealDerivation": "game-core:debox-ddz-round-seed-v1/debox-ddz-shuffle-v1",
+        "roundSeed": "f537f9501135ecd34efd9ab679b90c7a5b919359caa3b69924a0fc5a36a0938e",
+        "shuffleSeed": "a752e63e2563ce29921c0dc67870a0b9171ef0bd87f8c38d8f3828fc18009228",
+        "playerReadyNonces": {
+          "alice": "alice-ready-nonce-public-example",
+          "bob": "bob-ready-nonce-public-example",
+          "carol": "carol-ready-nonce-public-example"
+        },
+        "firstBidderSeat": 1,
+        "handCounts": {
+          "alice": 17,
+          "bob": 17,
+          "carol": 17
+        }
+      },
+      "previousHash": "c4607196db3ca5d390e6a51940aaa8b4423a1ac1a1edf39638b4c6c83bcd32f1",
+      "createdAt": "2026-06-13T00:00:01.000Z",
+      "eventHash": "04479857119838cde96b65158c1603db1406617e68dc86582604064088d80e4f"
+    },
+    {
+      "index": 2,
+      "type": "settlement.queued",
+      "actorId": "system",
+      "payload": {
+        "settlementId": "settlement-public-example",
+        "sessionId": "session-public-example",
+        "finalBalances": {
+          "alice": 2500,
+          "bob": 1750,
+          "carol": 1750
+        },
+        "fees": {
+          "alice": 0,
+          "bob": 0,
+          "carol": 0
+        },
+        "settlementChoices": {
+          "alice": "table_balance",
+          "bob": "withdrawal",
+          "carol": "withdrawal"
+        },
+        "transcriptHash": "04479857119838cde96b65158c1603db1406617e68dc86582604064088d80e4f"
+      },
+      "previousHash": "04479857119838cde96b65158c1603db1406617e68dc86582604064088d80e4f",
+      "createdAt": "2026-06-13T00:00:02.000Z",
+      "eventHash": "140814df819afa5e545065add1bfc4c346f4ad20446733398970ce9a89321b92"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session-public-example",
+      "status": "settling",
+      "asset": "BOX",
+      "stakePresetId": "box-1-2-3",
+      "baseStake": 100,
+      "feeConfig": {
+        "feeRateBps": 10,
+        "feeRateLabel": "0.1%",
+        "effectiveAt": "launch",
+        "announcedAt": "launch"
+      },
+      "playerIds": [
+        "alice",
+        "bob",
+        "carol"
+      ],
+      "lockedBalances": {
+        "alice": 2000,
+        "bob": 2000,
+        "carol": 2000
+      },
+      "startingBalances": {
+        "alice": 2000,
+        "bob": 2000,
+        "carol": 2000
+      },
+      "roundIds": [
+        "round-public-example"
+      ],
+      "transcriptHead": "140814df819afa5e545065add1bfc4c346f4ad20446733398970ce9a89321b92",
+      "createdAt": "2026-06-13T00:00:00.000Z",
+      "updatedAt": "2026-06-13T00:00:02.000Z"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "round-public-example",
+      "sessionId": "session-public-example",
+      "status": "complete",
+      "roundNumber": 1,
+      "serverCommitment": "41bbbb59a865b0af49ccc952bd6d606f63af28cebe2a3c18740870f8441f8d63",
+      "serverNonce": "public-example-server-nonce-000000000000000000000000000001",
+      "playerReadyNonces": {
+        "alice": "alice-ready-nonce-public-example",
+        "bob": "bob-ready-nonce-public-example",
+        "carol": "carol-ready-nonce-public-example"
+      },
+      "firstBidderSeat": 1,
+      "bids": [],
+      "biddingHandCounts": {
+        "alice": 17,
+        "bob": 17,
+        "carol": 17
+      },
+      "multiplier": 1,
+      "playState": {
+        "seatOrder": [
+          "alice",
+          "bob",
+          "carol"
+        ],
+        "landlordId": "alice",
+        "bidScore": 1,
+        "baseStake": 100,
+        "asset": "BOX",
+        "hands": {},
+        "handCounts": {
+          "alice": 17,
+          "bob": 17,
+          "carol": 17
+        },
+        "tableBalances": {
+          "alice": 2500,
+          "bob": 1750,
+          "carol": 1750
+        },
+        "bottomCards": [
+          {
+            "id": "diamonds-A",
+            "rank": "A",
+            "suit": "diamonds",
+            "label": "DA",
+            "value": 14
+          },
+          {
+            "id": "diamonds-J",
+            "rank": "J",
+            "suit": "diamonds",
+            "label": "DJ",
+            "value": 11
+          },
+          {
+            "id": "spades-8",
+            "rank": "8",
+            "suit": "spades",
+            "label": "S8",
+            "value": 8
+          }
+        ],
+        "currentTurnPlayerId": "alice",
+        "turnId": "turn-public-example",
+        "passStreak": 0,
+        "moves": [],
+        "exitAfterRoundPlayerIds": [],
+        "result": {
+          "winnerSide": "landlord",
+          "winnerPlayerId": "alice",
+          "landlordId": "alice",
+          "bidScore": 1,
+          "multiplier": 1,
+          "balanceDeltas": {
+            "alice": 500,
+            "bob": -250,
+            "carol": -250
+          },
+          "finalBalances": {
+            "alice": 2500,
+            "bob": 1750,
+            "carol": 1750
+          },
+          "completedAt": "2026-06-13T00:00:02.000Z"
+        }
+      },
+      "transcriptHead": "140814df819afa5e545065add1bfc4c346f4ad20446733398970ce9a89321b92",
+      "createdAt": "2026-06-13T00:00:01.000Z",
+      "updatedAt": "2026-06-13T00:00:02.000Z"
+    }
+  ]
+}
